@@ -17,9 +17,14 @@ resource "google_artifact_registry_repository" "website_repository" {
   format        = "DOCKER"
 }
 
-resource "google_artifact_registry_repository_iam_member" "member" {
+resource "google_artifact_registry_repository_iam_member" "artifact_perms_to_sa" {
   member     = "serviceAccount:${data.google_project.website_project.number}-compute@developer.gserviceaccount.com"
   location   = google_artifact_registry_repository.website_repository.location
   repository = google_artifact_registry_repository.website_repository.name
   role       = "roles/artifactregistry.reader"
+}
+
+resource "google_container_cluster" "website_cluster" {
+  name     = "website-cluster"
+  location = "us-central1"
 }
