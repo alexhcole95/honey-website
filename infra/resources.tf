@@ -25,6 +25,7 @@ resource "google_artifact_registry_repository_iam_member" "artifact_perms_to_sa"
 }
 
 resource "google_container_cluster" "website_cluster" {
-  name     = "website-cluster"
-  location = "us-central1"
+  name               = "website-cluster"
+  location           = "us-central1"
+  initial_node_count = 1
 }
